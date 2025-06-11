@@ -6,14 +6,13 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:07:36 by tfalchi           #+#    #+#             */
-/*   Updated: 2025/06/11 12:15:31 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/06/11 12:16:05 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "average.h"
 float average(const int *arr, int size)
 {
-	a
 	int i = 0;
 	float average = 0;
 	int correct_nbr = 0;
