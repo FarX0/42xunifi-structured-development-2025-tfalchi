@@ -6,55 +6,41 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:15:01 by tfalchi           #+#    #+#             */
-/*   Updated: 2025/06/17 18:20:49 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/06/19 12:24:36 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "filesystem.h"
 
-FSNode *create_file(const char *name, int size)
+FSNode	*create_file(const char *name, int size)
 {
-    FSNode *new_file;
-    
-    new_file = (FSNode *)malloc(sizeof(FSNode));
-    if (!new_file)
-        return NULL;
-    
-    // Allocate memory for the name
-    new_file->name = strdup(name);
-    if (!new_file->name) {
-        free(new_file);
-        return NULL;
-    }
-    
-    new_file->size = size;
-    new_file->child = NULL;
-    new_file->parent = NULL;
-    return (new_file);
+	FSNode *new_file;
+	
+	new_file = (FSNode *)malloc(sizeof(FSNode));
+	if (!new_file)
+		return NULL;
+	strncpy(new_file->name, name, sizeof(new_file->name) - 1);
+	new_file->name[sizeof(new_file->name) - 1] = '\0';
+	new_file->size = size;
+	new_file->child = NULL;
+	new_file->parent = NULL;
+	return (new_file);
 }
 
-FSNode *create_folder(const char *name)
+FSNode	*create_folder(const char *name)
 {
-    FSNode *new_folder;
+	FSNode *new_folder;
 
-    new_folder = (FSNode *)malloc(sizeof(FSNode));
-    if (!new_folder)
-        return NULL;
-    
-    // Allocate memory for the name
-    new_folder->name = strdup(name);
-    if (!new_folder->name) {
-        free(new_folder);
-        return NULL;
-    }
-    
-    new_folder->size = 0;
-    new_folder->child = NULL;
-    new_folder->parent = NULL;
-    return (new_folder);
+	new_folder = (FSNode *)malloc(sizeof(FSNode));
+	if (!new_folder)
+		return NULL;
+	strncpy(new_folder->name, name, sizeof(new_folder->name) - 1);
+	new_folder->name[sizeof(new_folder->name) - 1] = '\0';
+	new_folder->size = 0;
+	new_folder->child = NULL;
+	new_folder->parent = NULL;
+	return (new_folder);
 }
-
 void add_child(FSNode *parent, FSNode *child)
 {
 	if (!parent || !child)
@@ -93,23 +79,14 @@ FSNode	*get_sibling(const FSNode *node)
 	}
 	return (NULL);
 }
-#include <stdio.h>
-#include "filesystem.h"
 
-// Helper function to print the file system structure
 void print_fs(FSNode *node, int level)
 {
 	if (!node)
 		return;
-	
-	// Print indentation based on level
 	for (int i = 0; i < level; i++)
 		printf("  ");
-	
-	// Print node info
 	printf("%s (%d bytes)\n", node->name, node->size);
-	
-	// Print all children
 	FSNode *child = node->child;
 	while (child)
 	{
@@ -118,26 +95,17 @@ void print_fs(FSNode *node, int level)
 	}
 }
 
-// Function to clean up memory by recursively freeing nodes
 void cleanup_fs(FSNode *node)
 {
-	if (!node)
-		return;
-	
-	// First recursively free all children
-	FSNode *current = node->child;
-	FSNode *next;
-	
-	while (current)
-	{
-		next = current->child;
-		cleanup_fs(current);
-		current = next;
-	}
-	
-	free(node);
-}
+	int i = 0;
 
+	while (node && node->child)
+	{
+		cleanup_fs(node->child);
+		node = node->child;
+	}
+}
+/*
 int main(void)
 {
 	// Create root directory
@@ -200,3 +168,4 @@ int main(void)
 	
 	return 0;
 }
+*/

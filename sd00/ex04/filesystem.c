@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 14:15:01 by tfalchi           #+#    #+#             */
-/*   Updated: 2025/06/17 18:37:56 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/06/19 12:24:17 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,14 @@ FSNode	*get_sibling(const FSNode *node)
 	}
 	return (NULL);
 }
-#include <stdio.h>
-#include "filesystem.h"
 
-// Helper function to print the file system structure
 void print_fs(FSNode *node, int level)
 {
 	if (!node)
 		return;
-	
-	// Print indentation based on level
 	for (int i = 0; i < level; i++)
 		printf("  ");
-	
-	// Print node info
 	printf("%s (%d bytes)\n", node->name, node->size);
-	
-	// Print all children
 	FSNode *child = node->child;
 	while (child)
 	{
@@ -104,7 +95,6 @@ void print_fs(FSNode *node, int level)
 	}
 }
 
-// Function to clean up memory by recursively freeing nodes
 void cleanup_fs(FSNode *node)
 {
 	int i = 0;
@@ -115,7 +105,7 @@ void cleanup_fs(FSNode *node)
 		node = node->child;
 	}
 }
-
+/*
 int main(void)
 {
 	// Create root directory
@@ -178,3 +168,4 @@ int main(void)
 	
 	return 0;
 }
+*/
